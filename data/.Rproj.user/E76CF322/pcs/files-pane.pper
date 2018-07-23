@@ -1,0 +1,9 @@
+{
+    "path" : "~/R/LouisianaGov/data",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
