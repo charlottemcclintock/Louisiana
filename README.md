@@ -1,6 +1,4 @@
 # RunForOffice: Louisiana
-
-# About
 #### A Project of RunforOffice & DataforDemocracy 
 
 The aim of this project is to explore diversity and inclusion at all levels of government, investigating representation across demographics including race, gender, and age, and the demographic impact on state and local politics across the United States. The initial focus is Louisiana, but the eventual goal is to expand the project to every state.
