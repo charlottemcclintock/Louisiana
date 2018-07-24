@@ -1,10 +1,9 @@
-# LouisianaGov
-
+# RunForOffice: Louisiana
 
 # About
 #### A Project of RunforOffice & DataforDemocracy 
 
-Add a paragraph here on the aim of the project (i.e. The aim of this project is to explore diversity and inclusion at all levels of government, investigating representation across demographics including race, gender, and age, and it's impact on state and local politics across the United States. The initial focus is Louisiana, but the eventual goal is to expand the project to every state.)
+The aim of this project is to explore diversity and inclusion at all levels of government, investigating representation across demographics including race, gender, and age, and the demographic impact on state and local politics across the United States. The initial focus is Louisiana, but the eventual goal is to expand the project to every state.
 
 # Data Sources
 
@@ -20,6 +19,12 @@ Add a paragraph here on the aim of the project (i.e. The aim of this project is 
 
 To view the code for this project, click [here](https://www.github.com/charlottemcclintock/LouisianaGov).
 
-# Analysis & Visualizations
+# Decision Points
 
-To view the analysis, download the `doc.html` file. 
+#### Race Categorizations
+
+The `ethnicity` factor was recoded to "White", "Black or African-American", and "Other". This decision was made taking into consideration two factors:
+
+  1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to miniscule individual populations.
+  
+  2) There was some uncertainty surrounding the ethnicity classifications other than "W" and "B", and there was not adequate time to investigate the issue. 
