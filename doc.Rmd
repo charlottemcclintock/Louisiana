@@ -50,7 +50,7 @@ To view the code for this project, click [here](https://www.github.com/charlotte
 
 #### Race Categorizations
 
-The `ethnicity` factor was recoded to "White", "Black or African-American", and "Other". This decision was made taking into consideration two factors:
+The `ethnicity` factor was recoded to "White", "Black or African-American", and "Other". This decision was made taking into consideration two points:
 
   1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to miniscule individual populations.
   
