@@ -1,0 +1,216 @@
+---
+title: 'RunForOffice: Louisiana'
+author: "C. McClintock"
+date: "Summer 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# setwd("LouisianaGov/data")
+```
+
+```{r lib, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+library(knitr)   
+library(tidyverse)
+library(shiny)
+library(plotly)
+library(RColorBrewer)
+library(scales)
+
+load("viz.Rdata")
+```
+
+# About
+#### A Project of RunforOffice & DataforDemocracy 
+
+The aim of this project is to explore diversity and inclusion at all levels of government, investigating representation across demographics including race, gender, and age, and the demographic impact on state and local politics across the United States. The initial focus is Louisiana, but the eventual goal is to expand the project to every state.
+
+# Data Sources
+
+* Population parameters *from the Census Bureau*
+    +  Racial demographics of the state of Louisiana from the 2016 5-Year American Community Survey, retrieved through [SocialExplorer](https://www.socialexplorer.com/tables/ACS2016_5yr/R11751646).
+    +  Population of cities and towns retrieved from [American FactFinder](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml)
+* Race, party, gender, and position of elected officials *from WHERE?*
+    + 
+* Age and address of elected officials *from Louisiana Secretary of State Voter File*
+    + Retrieved from [the Louisiana Secretary of State](https://www.sos.la.gov/ElectionsAndVoting/BecomeACandidate/PurchaseVoterLists/Pages/default.aspx).
+  
+# Code & Scripts 
+
+To view the code for this project, click [here](https://www.github.com/charlottemcclintock/LouisianaGov).
+
+# Decision Points
+
+#### Race Categorizations
+
+The `ethnicity` factor was recoded to "White", "Black or African-American", and "Other". This decision was made taking into consideration two points:
+
+  1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to miniscule individual populations.
+  
+  2) There was some uncertainty surrounding the ethnicity classifications other than "W" and "B", and there was not adequate time to investigate the issue. 
+
+
+# Federal, State, and Local Government
+
+All elected offices were assigned a level of government (local, state, or federal), and a type of position (education, law enforcement, local government, executive, legislative, or judicial). These classifications were based on what categories were logical and potentially relevant. To see the code that made the assignments, go to section 2 of the `clean.R` script. 
+
+### Gender Representation in Elected Office
+
+#### By Level of Government
+
+Women have the highest level of representation in local government, with 1101 of 4180 elected positions, or around 26%. 
+
+```{r gender/level, echo=FALSE, fig.width=7, fig.height=4.5, fig.align="center"}
+la.b1
+```
+
+
+#### By Type of Position
+
+Women have the highest levels of representation in education and judicial fields, and the least representation in law enforcement positons and in the legislature. 
+
+```{r gender/type, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b1a
+```
+
+### Racial Representation in Elected Office
+
+#### By Level of Government
+
+White citizens of Louisiana are overrepresented at every level of government, where black citizens and citizens of another race are underrepresented.
+
+```{r race/level, echo=FALSE, fig.width=7, fig.height=4.5, fig.align="center"}
+la.b2
+```
+
+#### By Type of Position
+
+White citizens are most overrepresented in law enforcement and the judicial branch, where local government is the closest to the actual demographics of the state. 
+
+
+```{r race/type, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b2a
+```
+
+### Party Representation in Elected Office
+
+#### By Level of Government
+
+Local government tends to be the most liberal, and also has the highest proportion of officials who identify either with a third party or don't have a political affiliation.  
+
+```{r party/level, echo=FALSE, fig.width=7, fig.height=4.5, fig.align="center"}
+la.b3
+```
+
+#### By Type of Position
+
+The proportions of party representation are relative stable across types of position, except for the legislture where there are very few candidates that identify with a third party or ahve no party affiliation
+
+```{r party/type, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b3a
+```
+
+
+# Law Enforcement Positions
+
+Law enforcement positions include: Judge, Court of Appeal, Judge, Judge, Family Court, District Judge, City Judge, City Judge, City Court, Sheriff, Chief of Police, District Attorney, Marshal, City Marshal, City Constable, and Constable. Similar positions were categorized together for ease of visualization and communication. To see how, go to section 3 of the `clean.R` script. 
+
+### Gender Representation in Elected Law Enforcement
+
+Women are significantly underrepresented in law enforcement in Louisiana. Women account for around 32.5% of all judges, 10% of all constables, 9.5% of all DAs, 8.6% of all marshals, 3.5% of all police chiefs, 0% of all sheriffs. 
+
+```{r gender/enforce, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b1b
+```
+
+### Racial Representation in Elected Law Enforcement
+
+Black citizens are also underrepresented in law enforcement, to varying degrees. Black citizens make up 29% of police chiefs, 23.5% of judges, 21.7% of marshals, 14.7% of constables, 8% of sheriffs, and 7% of DAs. Citizens of a race other than Black or White are also underrepresented, making up between 0% and 2% of all law enforcement officials across the board.  
+
+```{r race/enforce, echo=FALSE, fig.width=12, fig.height=4.5, fig.align="center"}
+la.b2b
+```
+
+### Party Representation in Elected Law Enforcement
+
+Party representation is relatively stable across positions, with Democrats making up between 50-60% of most offices, and 63% of marshals. Police chiefs have the highest proportion of independent or non-partisan officials, where marshals have the least. 
+
+```{r party/enforce, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b3b
+```
+
+# Local Government Positions
+
+Local government positions include: Mayor, Council Member (general category for all types of council titles like Councilman at Large, Council Member II, etc), Parish President, and Police Juror. Mayor and Council Member are munipality level positions, where Parish President and Police Juror are county level positions.  To see the code that produced these distinctions, go to section 4 of the `clean.R` script. 
+
+### Gender Representation in Local Government
+
+Women have similar representation across the executive/legislative position type divide in local government (Mayor is similar to Council Member, Parish President is similar to Police Juror), but the proportion of women is 15 percentage points higher in municipal government, as compared to parish government.
+
+
+```{r gender/local, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b1c
+```
+
+### Racial Representation in Local Government
+
+Executive, individual positions appear to be more white, where legislative/council type positions seem to be more diverse. 90% of Parish Presidents are white, compared to 62% of the general population. 
+
+```{r race/local, echo=FALSE, fig.width=12, fig.height=4.5, fig.align="center"}
+la.b2c
+```
+
+
+### Party Representation in Local Government
+
+Parish presidents have the highest proportion of Republicans, where Mayors have the highest proportion of Democrats, a different of 13%. The proportion of independent or non-partisan candidates is consistently between 14% and 20%. 
+
+```{r party/local, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
+la.b3c
+```
+
+
+
+
+# Urban/Rural Differences in Municipal Government
+
+Cities with a population greater than 47,000 were categorized as urban, and cities and towns with a population less than 47,000 were categorized as rural (*this is currently an arbitrary distinction, I would love some guidance on what we think a good metric is*). 
+
+### Gender and the Urban-Rural Distinction
+
+Women generally make up around 25% of most local government positions, but make up a slightly higher proportion of urban mayors.
+
+```{r gender/muni, echo=FALSE, fig.width=8, fig.height=4.5, fig.align="center"}
+muni.b1
+```
+
+### Race and the Urban-Rural Distinction
+
+Urban areas have a much higher proportion of Black elected officials, potentially because of the demographics of bigger cities relative to more rural areas. Citizens who identify as a race other than White or Black are significantly underrepresented in both areas. 
+
+
+```{r race/muni, echo=FALSE, fig.width=8, fig.height=4.5, fig.align="center"}
+muni.b2
+```
+
+
+### Party Representation and the Urban-Rural Distinction
+
+Rural municipal governments have a much higher proportion of officials with either third-party or no party affiliation, with almost 25% of small town mayors not identifying with either of the two major parties. Urban areas are have substantially fewer officials without a party affiliation. All urban mayors are afilliated with one of the two major parties. 
+
+```{r party/muni, echo=FALSE, fig.width=8, fig.height=4.5, fig.align="center"}
+muni.b3
+```
+
+
+
+
+
+
+
+
+
+
+
+

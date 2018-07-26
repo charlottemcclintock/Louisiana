@@ -10,7 +10,7 @@
 rm(list=ls())
 getwd()
 # if need be 
-setwd("data")
+setwd("Louisiana/data")
 
 # set up: libraries
 library(dplyr)
