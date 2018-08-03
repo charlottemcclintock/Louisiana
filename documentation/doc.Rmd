@@ -37,10 +37,8 @@ The aim of this project is to explore diversity and inclusion at all levels of g
 * Population parameters *from the Census Bureau*
     +  Racial demographics of the state of Louisiana from the 2016 5-Year American Community Survey, retrieved through [SocialExplorer](https://www.socialexplorer.com/tables/ACS2016_5yr/R11751646).
     +  Population of cities and towns retrieved from [American FactFinder](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml)
-* Race, party, gender, and position of elected officials *from WHERE?*
-    + 
-* Age and address of elected officials *from Louisiana Secretary of State Voter File*
-    + Retrieved from [the Louisiana Secretary of State](https://www.sos.la.gov/ElectionsAndVoting/BecomeACandidate/PurchaseVoterLists/Pages/default.aspx).
+* Race, party, gender, and position of elected officials *from Louisiana Secretary of State*
+    + Retrieved from [the Louisiana Secretary of State](https://www.sos.la.gov/ElectionsAndVoting/BecomeACandidate/PurchaseVoterLists/Pages/default.aspx)
   
 # Code & Scripts 
 
