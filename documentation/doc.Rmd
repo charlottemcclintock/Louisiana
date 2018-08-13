@@ -30,7 +30,27 @@ load("viz.Rdata")
 # About
 #### A Project of RunforOffice & DataforDemocracy 
 
-We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. 
+We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. To view the code for this project, click [here](https://github.com/RunForOffice/Louisiana).
+
+
+
+## Next Steps
+
+1. Join the elections results with the elected officials data to explore margin of victory and number of candidates across different dimensions of government.
+2. Match state house districts with census data to compare representation to the local population.
+
+## Want to help? 
+
+Check out `la-officials-clean.csv` and `la-results-clean.csv` in the data folder and see if you can find any interesting insights into representation in Louisiana! The work so far is available [here](https://runforoffice.github.io/doc.html). 
+  
+## Code & Scripts 
+
+   * `clean.R` cleans the data and produces useful objects that are used in the visualizations
+      + `la-officials-clean.csv` is a complete list of elected officials
+      + `la-results-clean.csv` is a list of candidates and vote totals for all Louisiana races in 2014 and 2016
+   * `clean-elections.R` cleans the election results data 
+   * `doc.Rmd` produces an HTML file of the visualizations and current analysis
+   
 
 # Data Sources
 
@@ -40,10 +60,6 @@ We want to do basic analysis and visualization work using open public data inclu
 * Race, party, gender, and position of elected officials *from Louisiana Secretary of State*
     + Retrieved from [the Louisiana Secretary of State](https://www.sos.la.gov/ElectionsAndVoting/BecomeACandidate/PurchaseVoterLists/Pages/default.aspx)
   
-# Code & Scripts 
-
-To view the code for this project, click [here](https://www.github.com/charlottemcclintock/LouisianaGov).
-
 # Decision Points
 
 #### Race Categorizations
