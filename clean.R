@@ -27,6 +27,7 @@ library(RColorBrewer)
 # 2. ALL ELECTED OFFICES 
 # 3. LAW ENFORCEMENT
 # 4. LOCAL GOVERNMENT
+# 5. ELECTION RESULTS
 
 # ..................................................................................................
 
@@ -393,16 +394,119 @@ local$city[local$description == 'Metro Council, City of Baton Rouge'] <- 'Baton 
 
 local <- left_join(local, mpop, by = "city")
 
-
-# ..................................................................................................
-
 muni <- c("Mayor", "Council Member")
 muni <- filter(local, genoffice %in% muni)
 
 muni$density <- ifelse(muni$population>47000, "Urban", "Rural")
 muni$density <- factor(muni$density)
 
+
 # ..................................................................................................
+
+# 5. ELECTION RESULTS
+
+elect16 <- read_excel("la_elections_16_clean.xlsx")
+elect16$year <- 2016
+elect14 <- read_excel("la_elections_14_clean.xlsx")
+elect14$year <- 2014
+
+elect <- rbind(elect16, elect14)
+
+# rename
+elect <- rename(elect, "election"="Election", "candidate"="Option")
+
+# gather parishes
+elect <- gather(elect, "parish", "votes", Acadia:Winn)
+
+# separate into positon and district
+elect <- separate(elect, col = election, into = c("position", "district"), sep = " -- ")
+
+# filter out ballot initiatives
+elect <- filter(elect, !(elect$candidate=="YES" | elect$candidate=="NO"))
+
+# separate out party column
+elect <- separate(elect, col = candidate, into = c("candidate", "party"), sep = "[\\(\\)]" )
+
+multi <- elect %>% 
+  group_by(position, candidate, year) %>% 
+  summarise(votes = sum(votes))
+
+# get votes to a more useful format
+elect <- filter(elect, !is.na(elect$votes))
+elect$votes <- as.numeric(elect$votes)
+
+votes <- elect %>% 
+  group_by(position, district, candidate, party, year) %>% 
+  summarise(votes = sum(votes))
+
+multi.parish <- elect %>% 
+  group_by(position, district, candidate, year) %>%
+  count() %>% filter(n>1) %>% select(-n)
+multi.parish$parish <- "Multi-Parish Race"
+multi.parish <- left_join(multi.parish, votes, by=c("position", "district", "candidate", "year"))
+
+single.parish <- elect %>% 
+  group_by(position, district, candidate, party, year) %>%
+  count() %>% filter(n==1) %>% select(-n)
+single.parish <- left_join(single.parish, elect, 
+                           by = c("position", "district", "candidate", 
+                                  "party", "year"))
+
+elect <- full_join(multi.parish, single.parish, 
+                   by = c("position", "district", "candidate", "party", 
+                          "year", "parish", "votes"))
+
+elect <- arrange(elect, position, district)
+elect <- mutate(elect, 
+                pct = 100*votes/total)
+
+# calculate margin of victory
+margin <- elect %>% 
+  group_by(position, district) %>%
+  arrange(position, district, -desc(pct)) %>%
+  mutate_if(is.numeric,funs(. - lag(., default=0))) %>%
+  summarise_if(is.numeric, tail, 1) %>% select(position, district, votes, pct)
+margin <- rename(margin, "votemargin"="votes", "pctmargin"="pct")
+
+elect <- left_join(elect, margin, by = c("position", "district"))
+
+# add number of candidates
+ncan <- elect %>% 
+  group_by(position, district, year) %>%
+  count()
+ncan <- rename(ncan, "n_can"="n")
+elect <- left_join(elect, ncan, by = c("position", "district", "year"))
+
+# add number of candidates by party
+elect$party <- ifelse(elect$party=="GRN" | elect$party=="LBT", "OTHER", elect$party)
+npty <- elect %>% 
+  group_by(position, district, party, year) %>%
+  count()
+npty <- spread(npty, party, n)
+names(npty) <- c("position", "district", "year","n_dem", "n_nopty", "n_other", "n_rep")
+npty <- select(npty, position, district, year, n_dem, n_rep, n_nopty, n_other)
+elect <- left_join(elect, npty, by =  c("position", "district", "year"))
+
+# coerce NAs to 0s
+elect$n_dem <- ifelse(is.na(elect$n_dem), 0, elect$n_dem)
+elect$n_rep <- ifelse(is.na(elect$n_rep), 0, elect$n_rep)
+elect$n_nopty <- ifelse(is.na(elect$n_nopty), 0, elect$n_nopty)
+elect$n_other <- ifelse(is.na(elect$n_other), 0, elect$n_other)
+
+df <- select(la, candidate)
+arb <- left_join(df, elect, by = "candidate")
+
+# ..................................................................................................
+
+# USEFUL OBJECTS
+
+# la - complete cleaned list of elected officials 
+# elect -  election results
+
+# ..................................................................................................
+
+write.csv(la, "la-officials-clean.csv")
+write.csv(elect, "la-results-clean.csv")
 
 save.image("LA.Rdata")
 

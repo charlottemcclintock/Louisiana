@@ -30,7 +30,7 @@ load("viz.Rdata")
 # About
 #### A Project of RunforOffice & DataforDemocracy 
 
-The aim of this project is to explore diversity and inclusion at all levels of government, investigating representation across demographics including race, gender, and age, and the demographic impact on state and local politics across the United States. The initial focus is Louisiana, but the eventual goal is to expand the project to every state.
+We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. 
 
 # Data Sources
 
@@ -50,7 +50,7 @@ To view the code for this project, click [here](https://www.github.com/charlotte
 
 The `ethnicity` factor was recoded to "White", "Black or African-American", and "Other". This decision was made taking into consideration two points:
 
-  1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to miniscule individual populations.
+  1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to small individual populations.
   
   2) There was some uncertainty surrounding the ethnicity classifications other than "W" and "B", and there was not adequate time to investigate the issue. 
 
