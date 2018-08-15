@@ -1,6 +1,6 @@
 ---
 title: "RunForOffice: Louisiana"
-author: "Charlotte McClintock"
+author: "Jim Cupples, Charlotte McClintock"
 date: "Summer 2018"
 output: 
   html_document:
@@ -23,6 +23,9 @@ library(shiny)
 library(plotly)
 library(RColorBrewer)
 library(scales)
+library(grid)
+library(gridExtra)
+library(png)
 
 load("viz.Rdata")
 ```
@@ -32,7 +35,9 @@ load("viz.Rdata")
 
 We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. To view the code for this project, click [here](https://github.com/RunForOffice/Louisiana).
 
-
+#### Thanks to: 
+##### Jake Johnson *for wrangling the election results data to a usable format*
+##### Stephen Gardner *for the parish breakdowns*
 
 ## Next Steps
 
@@ -94,6 +99,33 @@ Women have the highest levels of representation in education and judicial fields
 la.b1a
 ```
 
+#### By Parish
+
+Gender representation varies substantially by parish, with the most proportional representation in East Baton Rouge Parish at 43% female to the least proportional in Vernon Parish at 12% female.
+
+```{r png/gender, echo=FALSE, out.width = "650px"}
+knitr::include_graphics("gender-byparish.png")
+```
+
+```{r png/genderpop, eval=FALSE, echo=FALSE, out.width = "650px"}
+knitr::include_graphics("gardner-charts/parish-pop-gender.png")
+```
+
+```{r png/genderelected, echo=FALSE, out.width = "650px"}
+knitr::include_graphics("gardner-charts/parish-elected-gender.png")
+```
+
+```{r png/gendergrid, eval = FALSE, echo=FALSE, fig.width=12}
+comb2pngs <- function(imgs, bottom_text = NULL){
+  img1 <-  grid::rasterGrob(as.raster(readPNG(imgs[1])),
+                            interpolate = FALSE)
+  img2 <-  grid::rasterGrob(as.raster(readPNG(imgs[2])),
+                            interpolate = FALSE)
+  grid.arrange(img1, img2, ncol = 2, bottom = bottom_text)
+}
+comb2pngs(c("gardner-charts/parish-pop-gender.png","gardner-charts/parish-elected-gender.png"))
+```
+
 ### Racial Representation in Elected Office
 
 #### By Level of Government
@@ -113,6 +145,15 @@ White citizens are most overrepresented in law enforcement and the judicial bran
 la.b2a
 ```
 
+#### By Parish
+
+Racial representation also varies substantially by parish, with the most proportional representation for Black or African American citizens in Union Parish and St. John the Baptist Parish with a 0% disparity between the population of Black or African American and the demographics of the elected officials, to the least proportional in Caddo with a 31% disparity and in Madison Parish with a 40% disparity between population and representation.
+
+```{r png/race, echo=FALSE, out.width = "650px"}
+knitr::include_graphics("race-byparish.png")
+```
+
+
 ### Party Representation in Elected Office
 
 #### By Level of Government
@@ -125,7 +166,7 @@ la.b3
 
 #### By Type of Position
 
-The proportions of party representation are relative stable across types of position, except for the legislture where there are very few candidates that identify with a third party or ahve no party affiliation
+The proportions of party representation are relative stable across types of position, except for the legislature where there are very few candidates that identify with a third party or ahve no party affiliation
 
 ```{r party/type, echo=FALSE, fig.width=11, fig.height=4.5, fig.align="center"}
 la.b3a

@@ -248,6 +248,8 @@ la <- mutate(la,
 # create more readable factor categories
 
 # race # all other racial groups are very small, makes sense to combine
+la$ethnicity <- as.character(la$ethnicity)
+la$ethnicity <- ifelse(is.na(la$ethnicity), "U", la$ethnicity)
 la <- mutate(la, 
                 race=fct_recode(ethnicity, 
                                 White="W",
@@ -255,19 +257,30 @@ la <- mutate(la,
                                 Other="A", 
                                 Other="O", 
                                 Other = "I", 
-                                Other = "H"))
+                                Other = "H", 
+                                Unknown = "U"))
+la$race <- as.factor(la$race)
 
 
 la <- mutate(la, 
-                race=fct_relevel(race,
-                                 "White", 
-                                 "Black or African American", 
-                                 "Other"))
+                race=fct_relevel(race,"Black or African American", 
+                                 "Other",
+                                 "Unknown", 
+                                 "White"))
+
+la$sex <- as.character(la$sex)
+la$sex <- ifelse(is.na(la$sex), "U", la$sex)
 
 la <- mutate(la, 
                 gender=fct_recode(sex, 
                                   Male="M",
-                                  Female="F"))
+                                  Female="F",
+                                  Unknown="U"))
+
+la$gender <- as.factor(la$gender)
+
+la <- mutate(la, 
+             gender=fct_relevel(gender, "Female", "Unknown", "Male"))
 
 la <- mutate(la, 
              party=fct_recode(party, 
@@ -399,6 +412,12 @@ muni <- filter(local, genoffice %in% muni)
 
 muni$density <- ifelse(muni$population>47000, "Urban", "Rural")
 muni$density <- factor(muni$density)
+
+df4 <- full_join(muni, pop, by = c("race", "genoffice"))
+df4 <- mutate(df4,
+              genoffice = as.factor(genoffice),
+              genoffice = fct_relevel(genoffice,
+                                      "2016 Louisiana Population"))
 
 
 # ..................................................................................................
