@@ -1,7 +1,11 @@
 # RunForOffice: Louisiana
 #### A Project of RunforOffice & DataforDemocracy 
 
-We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. 
+We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. To view the code for this project, click [here](https://github.com/RunForOffice/Louisiana).
+
+#### Thanks to: 
+##### Jake Johnson *for wrangling the election results data to a usable format*
+##### Stephen Gardner *for the parish breakdowns*
 
 ## Next Steps
 
@@ -20,15 +24,16 @@ Check out `la-officials-clean.csv` and `la-results-clean.csv` in the data folder
    * `clean-elections.R` cleans the election results data 
    * `doc.Rmd` produces an HTML file of the visualizations and current analysis
    
-## Data Sources
+
+# Data Sources
 
 * Population parameters *from the Census Bureau*
     +  Racial demographics of the state of Louisiana from the 2016 5-Year American Community Survey, retrieved through [SocialExplorer](https://www.socialexplorer.com/tables/ACS2016_5yr/R11751646).
     +  Population of cities and towns retrieved from [American FactFinder](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml)
 * Race, party, gender, and position of elected officials *from Louisiana Secretary of State*
     + Retrieved from [the Louisiana Secretary of State](https://www.sos.la.gov/ElectionsAndVoting/BecomeACandidate/PurchaseVoterLists/Pages/default.aspx)
-
-## Decision Points
+  
+# Decision Points
 
 #### Race Categorizations
 
@@ -37,5 +42,4 @@ The `ethnicity` factor was recoded to "White", "Black or African-American", and 
   1) Races other than Black or White make up 5.2% of the Louisiana population, and consistently less than 5% of the data. Taking all of those groups together makes it easier to discern their collective status, relative to small individual populations.
   
   2) There was some uncertainty surrounding the ethnicity classifications other than "W" and "B", and there was not adequate time to investigate the issue. 
-  
 
