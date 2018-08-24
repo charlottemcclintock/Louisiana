@@ -23,9 +23,9 @@ library(shiny)
 library(plotly)
 library(RColorBrewer)
 library(scales)
-library(grid)
-library(gridExtra)
-library(png)
+# library(grid)
+# library(gridExtra)
+# library(png)
 
 load("viz.Rdata")
 ```

@@ -512,8 +512,11 @@ elect$n_rep <- ifelse(is.na(elect$n_rep), 0, elect$n_rep)
 elect$n_nopty <- ifelse(is.na(elect$n_nopty), 0, elect$n_nopty)
 elect$n_other <- ifelse(is.na(elect$n_other), 0, elect$n_other)
 
-df <- select(la, candidate)
-arb <- left_join(df, elect, by = "candidate")
+gen <- select(la, office, genoffice)
+gen <- rename(gen, "position"="office")
+gen <- filter(gen, !duplicated(gen$position))
+
+elect <- left_join(elect, gen , by = "position")
 
 # ..................................................................................................
 
