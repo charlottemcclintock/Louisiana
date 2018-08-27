@@ -518,6 +518,13 @@ gen <- filter(gen, !duplicated(gen$position))
 
 elect <- left_join(elect, gen , by = "position")
 
+elect <- mutate(elect,
+                genoffice=fct_recode(position, 
+                                     "Alderman"="Aldermen at Large",
+                                     "Justice of the Peace"="Justice(s) of the Peace",
+                                     "Member of School Board"="Member(s) of School Board", 
+                                     "Presidential Electors"="Presidential Electors"))
+
 # ..................................................................................................
 
 # USEFUL OBJECTS
