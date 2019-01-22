@@ -1,6 +1,13 @@
 # RunForOffice: Louisiana
 #### A Project of RunforOffice & DataforDemocracy 
 
+
+## Project Completed!
+
+You can find a copy of the final report [here](https://runforoffice.github.io//rfo-report-final.pdf).
+
+## About The Project
+
 We want to do basic analysis and visualization work using open public data including state lists of elected officials, census data from the American Community Survey, and state voter files so that we can see where the imbalances are for representation across dimensions including gender, race, age, economic status, educational background, so that our government can better reflect and represent our citizens. To view the code for this project, click [here](https://github.com/RunForOffice/Louisiana).
 
 #### Thanks to: 

@@ -527,6 +527,37 @@ elect <- mutate(elect,
 
 # ..................................................................................................
 
+voters_race <- read_excel("jim-data-sum.xlsx", sheet=1, skip=1)
+voters_gender <- read_xls("jim-data-sum.xlsx", sheet = 2)
+
+arb <- read_excel("jim-data-sum.xlsx", sheet=1)
+
+names(voters_race) <- c("total", "reg-white", "reg-black", "reg-other", "dem-white", 
+                        "dem-black", "dem-other", "rep-white", "rep-black", "rep-other", 
+                        "other-white", "other-black", "other-other")
+
+
+
+bg0 <- ggplot(data = fc_og, aes(x = race)) + 
+  geom_bar(aes(fill = factor(race)), position = "dodge") 
+
+table(la$race)
+table(la$gender)
+
+reg_vote <- matrix(c("Black or African American", "White", "Other", 
+                     923866, 1886758, 148360), ncol = 2, nrow = 3)
+reg_vote <- as.data.frame(reg_vote)
+names(reg_vote) <- c("race", "count")
+reg_vote$count <- as.numeric(reg_vote$count)
+
+elect_off <- data.frame(table(la$race))
+names(elect_off) <- c("race", "count")
+
+reg_elected <- full_join(reg_vote, elect_off, by=c("race", "count"))
+
+
+# ..................................................................................................
+
 # USEFUL OBJECTS
 
 # la - complete cleaned list of elected officials 
